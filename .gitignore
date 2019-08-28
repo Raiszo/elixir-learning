@@ -1,3 +1,9 @@
+# emacs files
+*~
+\#*\#
+.\#*
+.tern-port
+
 /_build
 /cover
 /deps
