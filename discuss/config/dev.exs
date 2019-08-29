@@ -18,7 +18,7 @@ config :discuss, Discuss.Repo,
 # with webpack to recompile .js and .css sources.
 config :discuss, DiscussWeb.Endpoint,
   http: [port: System.get_env("PORT")],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   watchers: []
