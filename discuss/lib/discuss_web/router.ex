@@ -7,5 +7,7 @@ defmodule DiscussWeb.Router do
 
   scope "/api", DiscussWeb do
     pipe_through :api
+
+    post "/topics", TopicController, :new
   end
 end
