@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+    server:
+        image: jwilder/nginx-proxy:alpine
+        ports:
+            - '80:80' # Connect localhost 80 port to container 80 port
+            - '443:443'
+        volumes:
+            - ./certs:/etc/nginx/certs
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        restart: unless-stopped
+        logging:
+            driver: none
+
+    api:
+        build: .
+        image: phoenix-api
+        volumes:
+            - .:/usr/src/app
+            - api_build:/usr/src/app/_build
+        ports:
+            - '4000:80'
+        environment:
+            - PORT=80
+            - DB_NAME=myapp
+            - DB_USER=postgres
+            - DB_PASS=postgres
+            - DB_PORT=5432
+            - DB_HOST=postgres
+        depends_on:
+            - postgres
+
+    postgres:
+        image: postgres:11.5-alpine
+        ports:
+            - '5432:5432'
+        environment:
+            # Set user/password for Postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            # Set a path where Postgres should store the data
+            - POSTGRES_DB=myapp
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        restart: always
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        # logging:
+        #     driver: none
+
+volumes:
+    pgdata:
+    api_build:
