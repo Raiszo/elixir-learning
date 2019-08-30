@@ -4,6 +4,8 @@
 .\#*
 .tern-port
 
+/docker-connect
+
 /_build
 /cover
 /deps
