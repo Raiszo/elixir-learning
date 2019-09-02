@@ -9,5 +9,8 @@ defmodule DiscussWeb.Router do
     pipe_through :api
 
     post "/topics", TopicController, :create
+    get "/topics", TopicController, :index
+    get "/topics/:id", TopicController, :show
+    put "/topics/:id", TopicController, :update
   end
 end

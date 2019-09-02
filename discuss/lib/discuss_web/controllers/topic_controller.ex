@@ -13,8 +13,36 @@ defmodule DiscussWeb.TopicController do
     changeset = Topic.changeset(%Topic{}, topic_params)
 
     case Repo.insert(changeset) do
-      {:ok, post} -> IO.inspect(post)
-      {:error, changeset} -> IO.inspect(changeset)
+      {:ok, post} ->
+	render conn, "show.json", topic: post
+      {:error, changeset} ->
+	# conn
+	# |> put_status(:created)
+	# |> render("show.json", )
+	IO.inspect(changeset)
+    end
+  end
+
+  def index(conn, _params) do
+    topics = Repo.all(Topic)
+
+    render conn, "index.json", topics: topics
+  end
+
+  def show(conn, %{"id" => topic_id}) do
+    topic = Repo.get(Topic, topic_id)
+
+    render conn, "show.json", topic: topic
+  end
+  
+  def update(conn, %{"id" => topic_id, "topic" => topic}) do
+    changeset = Repo.get(Topic, topic_id) |> Topic.changeset(topic)
+
+    case Repo.update(changeset) do
+      {:ok, new_topic} ->
+	render conn, "show.json", topic: new_topic
+      {:error, changeset} ->
+	IO.inspect(changeset)
     end
   end
 

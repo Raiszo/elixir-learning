@@ -3,6 +3,22 @@ Content-Type: application/json
 
 {
 	"topic": {
-		 "title": "some stuff"
+		 "title": "yet another stuff"
+	}
+}
+
+##
+GET http://localhost:4000/api/topics
+
+##
+GET http://localhost:4000/api/topics/1
+
+##
+PUT http://localhost:4000/api/topics/1
+Content-Type: application/json
+
+{
+	"topic": {
+		 "title": "bla bla asdas"
 	}
 }
