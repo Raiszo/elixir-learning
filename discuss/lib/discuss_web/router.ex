@@ -8,9 +8,6 @@ defmodule DiscussWeb.Router do
   scope "/api", DiscussWeb do
     pipe_through :api
 
-    post "/topics", TopicController, :create
-    get "/topics", TopicController, :index
-    get "/topics/:id", TopicController, :show
-    put "/topics/:id", TopicController, :update
+    resources "/topics", TopicController, except: [:new, :edit]
   end
 end

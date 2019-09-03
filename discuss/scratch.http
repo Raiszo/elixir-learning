@@ -1,20 +1,23 @@
-POST http://localhost:4000/api/topics
+:base_url = http://localhost:4000
+##
+
+POST :base_url/api/topics
 Content-Type: application/json
 
 {
 	"topic": {
-		 "title": "yet another stuff"
+		 "title": ""
 	}
 }
 
 ##
-GET http://localhost:4000/api/topics
+GET :base_url/api/topics
 
 ##
-GET http://localhost:4000/api/topics/1
+GET :base_url/api/topics/3
 
 ##
-PUT http://localhost:4000/api/topics/1
+PUT :base_url/api/topics/1
 Content-Type: application/json
 
 {

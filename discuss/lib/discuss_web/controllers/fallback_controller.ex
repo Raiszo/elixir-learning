@@ -12,4 +12,10 @@ defmodule DiscussWeb.FallbackController do
     |> put_view(DiscussWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
+    conn
+    |> put_view(DiscussWeb.ChangesetView)
+    |> render(:"400", changeset: changeset)
+  end
 end

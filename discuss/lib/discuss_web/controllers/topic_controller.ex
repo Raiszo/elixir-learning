@@ -5,23 +5,7 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Repo
   alias Discuss.Content.Topic
 
-  # def show(conn, %{"id" => id}) do
-  #   topic = Content
-  # end
-  
-  def create(conn, %{"topic" => topic_params}) do
-    changeset = Topic.changeset(%Topic{}, topic_params)
-
-    case Repo.insert(changeset) do
-      {:ok, post} ->
-	render conn, "show.json", topic: post
-      {:error, changeset} ->
-	# conn
-	# |> put_status(:created)
-	# |> render("show.json", )
-	IO.inspect(changeset)
-    end
-  end
+  action_fallback DiscussWeb.FallbackController
 
   def index(conn, _params) do
     topics = Repo.all(Topic)
@@ -29,8 +13,26 @@ defmodule DiscussWeb.TopicController do
     render conn, "index.json", topics: topics
   end
 
+  def create(conn, %{"topic" => topic_params}) do
+    changeset = Topic.changeset(%Topic{}, topic_params)
+
+    with {:ok, %Topic{} = topic} <- Repo.insert(changeset) do
+      render conn, "show.json", topic
+    end
+
+    # case Repo.insert(changeset) do
+    #   {:ok, post} ->
+    # 	render conn, "show.json", topic: post
+    #   {:error, changeset} ->
+    # 	# conn
+    # 	# |> put_status(:created)
+    # 	# |> render("show.json", )
+    # 	IO.inspect(changeset)
+    # end
+  end
+
   def show(conn, %{"id" => topic_id}) do
-    topic = Repo.get(Topic, topic_id)
+    topic = Repo.get!(Topic, topic_id)
 
     render conn, "show.json", topic: topic
   end
@@ -44,6 +46,10 @@ defmodule DiscussWeb.TopicController do
       {:error, changeset} ->
 	IO.inspect(changeset)
     end
+  end
+
+  def delete(conn, %{"id" => topic_id}) do
+    Repo.get!(Topic, topic_id) |> Repo.delete!
   end
 
   # alias Discuss.Content
