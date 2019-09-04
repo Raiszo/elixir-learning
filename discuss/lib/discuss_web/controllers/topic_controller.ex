@@ -19,16 +19,6 @@ defmodule DiscussWeb.TopicController do
     with {:ok, %Topic{} = topic} <- Repo.insert(changeset) do
       render conn, "show.json", topic: topic
     end
-
-    # case Repo.insert(changeset) do
-    #   {:ok, post} ->
-    # 	render conn, "show.json", topic: post
-    #   {:error, changeset} ->
-    # 	# conn
-    # 	# |> put_status(:created)
-    # 	# |> render("show.json", )
-    # 	IO.inspect(changeset)
-    # end
   end
 
   def show(conn, %{"id" => topic_id}) do
@@ -50,6 +40,8 @@ defmodule DiscussWeb.TopicController do
 
   def delete(conn, %{"id" => topic_id}) do
     Repo.get!(Topic, topic_id) |> Repo.delete!
+
+    send_resp(conn, :no_content, "")
   end
 
   # alias Discuss.Content

@@ -25,3 +25,6 @@ Content-Type: application/json
 		 "title": ":v"
 	}
 }
+
+##
+DELETE :base_url/api/topics/5
