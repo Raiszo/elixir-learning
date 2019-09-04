@@ -14,7 +14,7 @@ Content-Type: application/json
 GET :base_url/api/topics
 
 ##
-GET :base_url/api/topics/3
+GET :base_url/api/topics/2
 
 ##
 PUT :base_url/api/topics/1
@@ -22,6 +22,6 @@ Content-Type: application/json
 
 {
 	"topic": {
-		 "title": "bla bla asdas"
+		 "title": ":v"
 	}
 }

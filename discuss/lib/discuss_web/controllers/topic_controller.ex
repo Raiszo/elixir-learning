@@ -17,7 +17,7 @@ defmodule DiscussWeb.TopicController do
     changeset = Topic.changeset(%Topic{}, topic_params)
 
     with {:ok, %Topic{} = topic} <- Repo.insert(changeset) do
-      render conn, "show.json", topic
+      render conn, "show.json", topic: topic
     end
 
     # case Repo.insert(changeset) do
